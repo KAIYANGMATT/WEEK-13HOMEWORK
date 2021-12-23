@@ -1,0 +1,152 @@
+
+
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset="utf-8">
+  <title></title>
+  <style>
+    body {
+      font-family: "微軟正黑體", "Helvetica", "Serif"; 
+      box-sizing: border-box;
+      background: url("images/tree.jpg") no-repeat left top;
+      background-size: cover;
+      background-color: lightgreen;
+    }
+
+    .white {
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 50px 30px;
+    }
+
+    .block {
+      width: 60%;
+      margin: 150px auto;
+      background: url('images/rope.png') no-repeat left top;
+    }
+
+    .head {
+      background: url('images/wood.png') no-repeat left top;
+      height: 100px;
+      width: 500px;   
+      padding: 10px; 
+      box-sizing: border-box;   
+    }
+
+    .content {
+      background: url('images/woodbig.png') no-repeat left top;
+      padding: 4px 20px; 
+      height: 240px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      font-size: 42px;
+      margin: 2px;
+    }    
+
+    p, input, button {
+      font-size: 22px;
+    }
+    
+    button {
+      background-color: tomato;
+      border-radius: 5px;
+      padding: 3px 10px;
+    }
+
+    div {
+      width: 75%;
+      margin: 0px auto;
+      
+    }
+
+    ul.myList{
+      list-style-type: none;
+      font-family: "Times New Roman", Times, serif;
+      border-style: dashed;
+      font-size: 22px;
+    }
+    
+    a:hover {text-decoration:underline;background-color:purple;}
+   
+
+  </style> 
+</head>
+
+<body>
+  <div class="white">
+    <div class="block">
+      <div class="head">
+        <h1>Guessing Game</h1>
+      </div>
+      <div class="content">
+        <p>Your Guess 1~100</p>
+
+        <input id="numb" type="number" max="100" min="1" >
+        <button type="button" onclick="myFunction()"><a class="hover">Play</a></button>
+        
+        <p id="demo"></p>
+        <button type="button" onclick="F5()">重新開始!</button>
+        <ul class="myList">
+          <li>Result</li>
+        </ul>
+        
+      </div>
+    </div>
+  </div>  
+
+  <script>
+  var x, txt;  
+  var ans = Math.floor((Math.random() * 99 )  +1 );
+  var min = 1; 
+  var max = 100;
+
+
+  function F5(){
+    window.location.reload();    
+  }
+
+  function myFunction() {      
+      demo.innerHTML = "";
+      x = document.getElementById("numb").value;
+      try { 
+          if(x == "")  throw "數值為空，請輸入數字";
+          if(isNaN(x)) throw "請輸入數字";
+          x = Number(x);
+          if(x > 100)   throw "輸入的數值太大";
+          if(x < 1)    throw "輸入的數值太小";
+
+           x = parseInt(x); 
+           
+          if(x == ans){
+            txt = "恭喜猜對！ " ;
+          }else {
+              if(x > ans){
+                  max = x;
+              }else{ //x < ans
+                  min = x;
+              }
+               txt = "正確數字介於 " + min + " 至 "+ max +" 之間。" ;
+          }
+          var node = document.createElement("LI");
+          var textnode = document.createTextNode(min + "~" + max);
+          node.appendChild(textnode);
+          document.querySelector('.myList').appendChild(node);
+      }
+      catch(err) {
+          txt = "輸入有誤！ " + err;
+      }
+      finally { 
+        document.getElementById("demo").innerHTML = txt;
+      }
+      
+
+  }
+
+      
+  </script>
+  
+
+</body>
+</html>
